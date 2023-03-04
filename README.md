@@ -3,29 +3,27 @@ A simple speech to text in python, with google stt, and whisper stt and translat
 
 For example, here Google does not recognize me, but whisper can :-)
 
-````
+```
 *** reading ***
 *** exporting ***
 export OK
 *** recognizing with google ***
 result2:
-{   'alternative': [   {   'confidence': 0.81851226,
-                           'transcript': 'Bolsover Sugar by Nesta'},
-                       {'transcript': 'Bolsover Sugar by Nestor'},
-                       {'transcript': 'Bolsover Sugar by investor'},
-                       {'transcript': 'Bolsover Sugar by in Leicester'},
-                       {'transcript': 'Bolsover Sugar by nister'}],
+{   'alternative': [   {   'confidence': 0.21795285,
+                           'transcript': 'if it falls on its back'},
+                       {'transcript': 'Aether bullseye meaning'},
+                       {'transcript': 'Ethan balls army next'},
+                       {'transcript': 'Eva balls army next'},
+                       {'transcript': 'ether bullseye meaning'}],
     'final': True}
-Bolsover Sugar by Nesta
+if it falls on its back
  
 *** recognizing with whisper ***
-{
-  "text": "Bonjour Monsieur Google, il fait beau aujourd'hui n'est-ce pas?"
-}
+Il fait beau aujourd'hui n'est-ce pas?
+ 
 *** translating with whisper ***
-{
-  "text": "Hello Mr. Google, it's a beautiful day today, isn't it?"
-}
+It's a beautiful day today, isn't it?
 
 Process finished with exit code 0
+
 ```
