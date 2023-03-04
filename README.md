@@ -3,7 +3,7 @@ A simple speech to text in python, with google stt, and whisper stt and translat
 
 For example, here Google does not recognize me, but whisper can :-)
 
-
+````
 *** reading ***
 *** exporting ***
 export OK
@@ -28,3 +28,4 @@ Bolsover Sugar by Nesta
 }
 
 Process finished with exit code 0
+```
