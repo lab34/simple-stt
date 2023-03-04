@@ -1,31 +1,49 @@
 import pyaudio
 import speech_recognition as sr
+import wave
+from pydub import AudioSegment
 import pyttsx3
 
-# Set up the PyAudio object
-audio = pyaudio.PyAudio()
+p = pyaudio.PyAudio()
 
-# Open the microphone
-print("open microphone")
-stream = audio.open(format=pyaudio.paInt16, channels=1, rate=44100, input=True, frames_per_buffer=1024)
+chunk = 1024
+sample_format = pyaudio.paInt16
+channels = 1
+fs = 44100
+seconds = 5
 
-# Record audio for 5 seconds
+stream = p.open(format=sample_format,
+                channels=channels,
+                rate=fs,
+                frames_per_buffer=chunk,
+                input=True)
+
 frames = []
-print("record audio")
-for i in range(0, int(44100 / 1024 * 5)):
-    data = stream.read(1024)
+
+print("reading")
+for i in range(0, int(fs / chunk * seconds)):
+    data = stream.read(chunk)
     frames.append(data)
 
-print("convert audio")
-# Convert the audio frames to a SpeechRecognition AudioData object
-audio_data = sr.AudioData(b''.join(frames), sample_rate=44100, sample_width=2)
+stream.stop_stream()
+stream.close()
+p.terminate()
 
-print("speech recognition")
-# Set up the SpeechRecognition recognizer object
-recognizer = sr.Recognizer()
+wave_file = wave.open("audio.wav", "wb")
+wave_file.setnchannels(channels)
+wave_file.setsampwidth(p.get_sample_size(sample_format))
+wave_file.setframerate(fs)
+wave_file.writeframes(b''.join(frames))
+wave_file.close()
 
-# Use the recognizer to transcribe the audio
-text = recognizer.recognize_google(audio_data)
+r = sr.Recognizer()
+print("exporting")
+with sr.AudioFile('audio.wav') as source:
+    audio = r.record(source)
+
+print("recognizing")
+text = r.recognize_google(audio)
+
 print(text)
 
 # Set up the pyttsx3 engine object
